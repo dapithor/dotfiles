@@ -1,0 +1,68 @@
+# default foreground color (%N) - -1 is the "default terminal color"
+#default_color = "-1";
+
+# these characters are automatically replaced with specified color
+# (dark grey by default)
+#replaces = { "[]" = "%K$*%n"; };
+#replaces = { "<>" = "%Y$0-%n"; };
+
+abstracts = {
+  # timestamp = "%K$*%n";
+
+  # text to insert at the beginning of each non-message line
+  # line_start = "%B-%W!%B-%n ";
+
+  # Extracolors start here
+  magenta = "%M<%n%W$0%n$1-%M>%n %|";
+  blue = "%B<%n%W$0%n$1-%B>%n %|";
+
+  # the basic styling of how to print message, $0 = nick mode, $1 = nick
+  msgnick = "{blue $0$1-}";
+
+  # $0 = nick mode, $1 = nick
+  ownmsgnick = "{magenta $0$1-}";
+  ownprivmsgnick = "{magenta %N$*}";
+
+  # public messages $0 = nick mode, $1 = nick
+  pubmsgnick = "{blue $0$1-}";
+  pubmsgmenick = "{blue $0$1-}";
+
+  # public highlighted message in channel
+  # $0 = highlight color, $1 = nick mode, $2 = nick
+  pubmsghinick = "{blue $1$0$2-}";
+
+  # private message in query
+  privmsgnick = "{blue %N$*}";
+
+  # reason for something is printed (part, quit, kick, ..)
+  reason = "(%n$*)";
+
+  # mode change is printed in red ([+o nick])
+  mode = "[%r$*%n]";
+
+  # Statusbar settings
+  # This controls each part of a statusbor, including the outer brackets of adv_windowlist
+  #sb_background = "%k%6";
+  sb_background = "%k%n";
+  sb = " $* %M|%n";
+  prompt = "$c$*%n> ";
+
+};
+
+formats = {
+  "fe-common/irc" = {
+    # whois = "{nick $0} {nickhost $1@$2}%: ircname : $3";
+    chanmode_change = "%r***%n mode/{channelhilight $0} {mode $1} by {nick $2}";
+  };
+  "fe-common/core" = {
+    timestamp = "[%%I:%%M.%%S] ";
+    # timestamp = "{timestamp %%Y%%m%%d-%%H:%%M.%%S} ";
+    # join = "%M+%n {channick_hilight $0} {chanhost_hilight $1} joined {channel $2}";
+    # part = "%M-%n {channick $0} {chanhost $1} left {channel $2} {reason $3}";
+    # quit = "%M-%n {channick $0} {chanhost $1} quit {reason $2}";
+    join = "%g+++%n join/{channel $2} {channick_hilight $0} {chanhost_hilight $1}";
+    part = "%Y---%n part/{channel $2} {channick $0} {chanhost $1} {reason $3}";
+    quit = "%Y---%n quit: {channick $0} {chanhost $1} {reason $2}";
+    kick = "%M!!!%n {channick $0} was kicked from {channel $1} by {nick $2} {reason $3}";
+  };
+};
