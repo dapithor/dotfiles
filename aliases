@@ -1,0 +1,2 @@
+alias ls='ls -FG'
+alias sr='tmux attach'
